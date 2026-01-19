@@ -245,7 +245,17 @@ export default function SignupScreen() {
         );
 
       case 6:
-        return <StepOnboarding horizonId={formData.horizonId} />;
+        return (
+          <StepOnboarding
+            horizonId={formData.horizonId}
+            userGoal={
+              formData.context.goal ||
+              formData.context.projectName ||
+              "Explorar"
+            }
+            onFinish={() => router.replace("/(tabs)")}
+          />
+        );
       default:
         return null;
     }

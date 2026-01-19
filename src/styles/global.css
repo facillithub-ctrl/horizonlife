@@ -1,0 +1,17 @@
+/* src/styles/global.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --hz-pure-white: #ffffff;
+    --hz-pure-black: #000000;
+    --hz-red: #b6192e;
+  }
+
+  /* Foco em Acessibilidade: Feedback visual para estados ativos */
+  .hz-button-active {
+    @apply opacity-80 scale-[0.98] transition-transform;
+  }
+}

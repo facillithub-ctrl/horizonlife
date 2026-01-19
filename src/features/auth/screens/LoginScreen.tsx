@@ -1,9 +1,10 @@
-// src/features/auth/screens/LoginScreen.tsx
 import { HZButton } from "@/components/ui/HZButton";
 import { HZInput } from "@/components/ui/HZInput";
 import { useAuthStore } from "@/features/auth/hooks/useAuth";
+import { router } from "expo-router"; // [FIX] Importação crucial adicionada
 import React, { useState } from "react";
 import {
+    Alert,
     KeyboardAvoidingView,
     Platform,
     SafeAreaView,
@@ -19,9 +20,9 @@ export default function LoginScreen() {
   const handleLogin = async () => {
     try {
       await signIn(email, password);
+      router.replace("/(tabs)"); // Redireciona para o app após login
     } catch (err: any) {
-      console.error("HZ-AUTH_001:", err.message);
-      // Aqui integrariamos nossa Error Library
+      Alert.alert("Erro de Acesso", err.message);
     }
   };
 
@@ -55,10 +56,11 @@ export default function LoginScreen() {
 
         <View className="mt-4 gap-y-3">
           <HZButton title="Entrar" onPress={handleLogin} loading={loading} />
+          {/* Navegação para o Signup corrigida */}
           <HZButton
             title="Criar HorazionID"
             variant="secondary"
-            onPress={() => {}}
+            onPress={() => router.push("/auth/signup")}
           />
         </View>
 

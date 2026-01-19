@@ -1,5 +1,6 @@
-import LoginScreen from "@/features/auth/screens/LoginScreen";
+import WelcomeScreen from "@/features/auth/screens/WelcomeScreen";
 
+// Redireciona o entry-point para a nova tela de Boas-vindas
 export default function Page() {
-  return <LoginScreen />;
+  return <WelcomeScreen />;
 }

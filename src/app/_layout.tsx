@@ -1,4 +1,7 @@
-import { SplashAnimation } from "@/components/ui/SplashAnimation"; // Importe a nova splash
+// [FIX CRÍTICO] Importação dos estilos globais do NativeWind
+import "@/styles/global.css";
+
+import { SplashAnimation } from "@/components/ui/SplashAnimation";
 import {
   Inter_400Regular,
   Inter_700Bold,
@@ -13,37 +16,33 @@ SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
   const [appReady, setAppReady] = useState(false);
-  const [splashAnimationFinished, setSplashAnimationFinished] = useState(false);
+  const [splashFinished, setSplashFinished] = useState(false);
 
-  const [fontsLoaded, fontError] = useFonts({
+  const [loaded, error] = useFonts({
     Inter_400Regular,
     Inter_700Bold,
     Poppins_600SemiBold,
   });
 
   useEffect(() => {
-    if (fontsLoaded || fontError) {
-      // Esconde a splash nativa do celular para mostrar a nossa Splash Animada (React)
+    if (loaded || error) {
       SplashScreen.hideAsync();
       setAppReady(true);
     }
-  }, [fontsLoaded, fontError]);
+  }, [loaded, error]);
 
-  if (!appReady) {
-    return null; // Ainda carregando fontes, tela nativa visível
-  }
+  if (!appReady) return null;
 
-  // Se a animação ainda não acabou, mostre a SplashAnimation sobre o app
-  if (!splashAnimationFinished) {
-    return (
-      <SplashAnimation onFinish={() => setSplashAnimationFinished(true)} />
-    );
+  // Renderiza a Splash Animada antes de mostrar o App
+  if (!splashFinished) {
+    return <SplashAnimation onFinish={() => setSplashFinished(true)} />;
   }
 
   return (
     <Stack screenOptions={{ headerShown: false }}>
       <Stack.Screen name="index" />
       <Stack.Screen name="(tabs)" />
+      <Stack.Screen name="auth/login" />
       <Stack.Screen name="auth/signup" options={{ presentation: "modal" }} />
     </Stack>
   );

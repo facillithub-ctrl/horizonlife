@@ -1,10 +1,16 @@
 module.exports = function (api) {
   api.cache(true);
   return {
-    presets: ["babel-preset-expo"],
+    presets: [
+      [
+        "babel-preset-expo",
+        {
+          jsxImportSource: "nativewind", // Ativa o compilador do NativeWind v4
+        },
+      ],
+    ],
     plugins: [
-      "nativewind/babel", // O plugin clássico da v2
-      "react-native-reanimated/plugin",
+      "react-native-reanimated/plugin", // Deve ser sempre o último plugin
     ],
   };
 };
